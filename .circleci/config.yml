@@ -3,6 +3,24 @@ orbs:
   node: circleci/node@4.1.0
   aws-cli: circleci/aws-cli@1.3.1
   eb: circleci/aws-elastic-beanstalk@2.0.1
+commands:
+  deploy:
+    working_directory: ./reactnd-contacts-server
+    steps:
+      - node/test
+      - eb/deploy:
+          context: aws-creds
+          environment-name: reactnd-contacts-server-dev
+          filters:
+            branches:
+              only:
+                - main
+          label: version-<<pipeline.number>>
+          requires:
+            - node/test
+      - run:
+          name: Deploying the Server
+          command: npm run backend:deploy
 jobs:
   build:
     docker:
@@ -31,20 +49,4 @@ jobs:
       - run:
           name: Back-End deploy
           command: npm run backend:deploy
-      - deploy:
-          working_directory: ./reactnd-contacts-server
-          steps:
-            - node/test
-            - eb/deploy:
-                context: aws-creds
-                environment-name: reactnd-contacts-server-dev
-                filters:
-                  branches:
-                    only:
-                      - main
-                label: version-<<pipeline.number>>
-                requires:
-                  - node/test
-            - run:
-                name: Deploying the Server
-                command: npm run backend:deploy
+      - deploy
