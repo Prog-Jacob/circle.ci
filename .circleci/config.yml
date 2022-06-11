@@ -31,6 +31,20 @@ jobs:
       - run:
           name: Back-End deploy
           command: npm run backend:deploy
-      - run:
-          name: Front-End deploy
-          command: npm run frontend:deploy
+      - deploy:
+          working_directory: ./reactnd-contacts-server
+          steps:
+            - node/test
+            - eb/deploy:
+                context: aws-creds
+                environment-name: reactnd-contacts-server-dev
+                filters:
+                  branches:
+                    only:
+                      - main
+                label: version-<<pipeline.number>>
+                requires:
+                  - node/test
+            - run:
+                name: Deploying the Server
+                command: npm run backend:deploy
