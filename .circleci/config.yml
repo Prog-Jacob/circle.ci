@@ -30,15 +30,16 @@ jobs:
     docker:
       - image: "cimg/base:stable"
     steps:
-      - checkout
       - aws-cli/setup
       - eb/setup
       - run:
           name: Front-End Deploy
-          command: npm run frontend:deploy
+          command: |
+            npm run frontend:deploy
       - run:
           name: Back-End Deploy
-          command: npm run backend:deploy
+          command: |
+            npm run backend:deploy
 workflows:
   build_and_deploy:
     jobs:
