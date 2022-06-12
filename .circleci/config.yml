@@ -26,6 +26,11 @@ jobs:
           name: Front-End Build
           command: |
             npm run frontend:build
+  deploy:
+    docker:
+      - image: "cimg/base:stable"
+    steps:
+      - node/test
       - aws-cli/setup
       - eb/setup
       - run:
