@@ -1,2 +1,0 @@
-eb deploy
-eb status
