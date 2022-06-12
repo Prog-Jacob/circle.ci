@@ -10,13 +10,10 @@ jobs:
     steps:
       - checkout
       - node/install
-      - run:
-          working-directory: ./reactnd-contacts-server
-          - node/install-packages
-      - run:
-          name: Front-End Install
-          command: |
-            npm run frontend:install
+      - node/install-packages:
+          app-dir: ~/udacity/reactnd-contacts-complete
+      - node/install-packages:
+          app-dir: ~/udacity/reactnd-contacts-server
       - run:
           name: Back-End Build
           command: |
