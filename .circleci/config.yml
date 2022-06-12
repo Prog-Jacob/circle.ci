@@ -30,6 +30,7 @@ jobs:
     docker:
       - image: "cimg/base:stable"
     steps:
+      - checkout
       - aws-cli/setup
       - eb/setup
       - run:
