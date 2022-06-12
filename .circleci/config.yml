@@ -9,11 +9,8 @@ jobs:
       - image: "cimg/base:stable"
     steps:
       - checkout
-      - node/install
       - node/install-packages:
           app-dir: ./reactnd-contacts-complete
-      - node/install-packages:
-          app-dir: ./reactnd-contacts-server
       - run:
           name: Back-End Build
           command: |
