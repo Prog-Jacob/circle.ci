@@ -11,9 +11,9 @@ jobs:
       - checkout
       - node/install
       - node/install-packages:
-          app-dir: ~/udacity/reactnd-contacts-complete
+          app-dir: ./reactnd-contacts-complete
       - node/install-packages:
-          app-dir: ~/udacity/reactnd-contacts-server
+          app-dir: ./reactnd-contacts-server
       - run:
           name: Back-End Build
           command: |
